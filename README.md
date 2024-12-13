@@ -1,5 +1,6 @@
-# My config of DWM!
 <img src="https://github.com/aurorae-nb/dwm/blob/main/banner.png">
+
+# My config of DWM!
 
 ## About
 I started this project inspired by Chris Titus's "dwm-titus" and "debian-titus," though it is not a fork of his project. It is a fork of Suckless's DWM, Dmenu, and SLStatus, however, with these all put together in one project for ease of install with all my tweaks. Generally just trying to make it a little bit prettier and add some functionality for laptops.
