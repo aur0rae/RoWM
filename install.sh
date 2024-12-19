@@ -12,7 +12,7 @@ deb_install() {
 	sudo apt update
 	sudo apt upgrade
 	sudo apt install -y x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git
-	sudo apt install -y feh rofi lxpolkit fzf zoxide batcat nala kitty thunar lxappearance pavucontrol firefox-esr flatpak
+	sudo apt install -y feh lxpolkit fzf zoxide batcat nala kitty thunar lxappearance pavucontrol neovim flatpak
 
 	# Configure nala to use best available mirrors
 	sudo nala fetch
@@ -21,7 +21,7 @@ deb_install() {
 arch_install() {
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --noconfirm base-devel libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight git
-	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty rofi picom thunar lxpolkit lxappearance pavucontrol firefox flatpak
+	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty picom thunar lxpolkit lxappearance pavucontrol neovim flatpak
 
 	# Install paru
 	git clone https://aur.archlinux.org/paru.git
@@ -127,5 +127,32 @@ mv bg.png ~/Pictures/bg.png && feh --bg-fill ~/Pictures/bg.png
 
 
 # Notify user that process terminated successfully
-echo "Installation completed successfully. No errors reported."
-exit
+echo -n "Installation completed successfully. No errors reported."
+
+
+flatpak_install() {
+	flatpak install flathub com.discordapp.Discord
+	flatpak install flathub com.valvesoftware.Steam
+	flatpak install flathub org.prismlauncher.PrismLauncher
+	flatpak install flathub one.ablaze.floorp
+	flatpak install flathub org.gimp.GIMP
+	flatpak install flathub org.libreoffice.LibreOffice
+	flatpak install flathub org.mozilla.Thunderbird
+	flatpak install flathub com.obsproject.Studio
+}
+
+# Optionally install additional packages with Flatpak
+while true; do
+	read -p "Install additional software? (Y/N): " confirm
+	if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
+		echo "Installing..."
+		flatpak_install
+		echo "Finished installing additional software. No errors reported"
+		break
+
+	elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+		break
+	else
+		echo "Error: Improper input. Please try again."
+	fi
+done
