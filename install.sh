@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# Determine distrobution and install the correct dependancies
-echo "Determining distribution..."
-
+# Update and install software with the selected package manager
 deb_install() {
 	sudo apt update
-	sudo apt install -y nala feh kitty rofi picom thunar lxpolkit x11-xserver-utils pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git firefox-esr flatpak
-        sudo nala fetch
+	sudo apt install -y fzf zoxide batcat nala feh kitty rofi picom thunar lxpolkit x11-xserver-utils pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git firefox-esr flatpak
+        # Configure nala to use best available mirrors
+	sudo nala fetch
 }
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm base-devel libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight alsa-utils feh kitty rofi picom thunar lxpolkit pavucontrol git firefox flatpak
+	sudo pacman -S --noconfirm bat zoxide fzf eza base-devel libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight alsa-utils feh kitty rofi picom thunar lxpolkit pavucontrol git firefox flatpak
+	# Install paru
 	git clone https://aur.archlinux.org/paru.git && cd paru
         makepkg -si
 	cd .. && rm -rf paru
@@ -22,6 +22,11 @@ opensuse_install() {
 	sudo zypper dist-upgrade
 	sudo zypper install -t devel_basis
 	sudo zypper install -y libX11-devel libxcb-devel libXft-devel libXinerama-devel xorg-x11-server thunar feh kitty rofi picom lxpolkit pavucontrol git firefox flatpak
+}
+
+
+# Determine distribution
+echo "Determining distribution and package manager..."
 
 if [ -f "/etc/os-release" ]; then
 	source /etc/os-release
@@ -40,7 +45,7 @@ if [ -f "/etc/os-release" ]; then
 			opensuse_install
 			;;
 		*)
-			echo "Error: Unsupported. Exiting..."
+			echo "Error: Unsupported distribution. Exiting..."
 			exit
 			;;
 	esac
@@ -50,14 +55,14 @@ else
 fi
 
 
-# Configure Flatpak
+# Configure Flatpak to use Flathub
 echo "Configuring Flatpak..."
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 
 # Move dwm, dmenu, and slstatus into appropriate hidden folders under user's home directory and compile
-echo "Moving things around and building..."
+echo "Compiling DWM and suckless software..."
 
 TEMP_DIR=$(pwd)
 
@@ -66,8 +71,9 @@ for word in "dwm dmenu slstatus"; do
 done
 
 
-# Editing bash and Xorg things
-echo "Configuring DWM to launch at login..."
+# Edit files to make DWM launch on startup and set background properly
+echo "Configuring DWM to launch on login..."
+
 if [ !-f "~/.xinitrc" ]; then
 	touch ~/.xinitrc
 	echo -e ". .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
@@ -82,7 +88,7 @@ fi
 echo -e "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n  startx\nfi" >> ~/.bash_profile
 
 
-# Configuring bash prompt
+# Configure bash prompt
 echo "Setting custom bash prompt..."
 
 git clone https://github.com/aurorae-nb/mybash
@@ -90,17 +96,22 @@ mv mybash/bashrc-simple-cyan ~/.bashrc
 rm -rf mybash
 
 
-# Theming
+# Apply themes
 echo "Installing themes (set with lxappearance)..."
 
+# Install Nordic theme by EliverLara 
 cd /usr/share/theme && sudo git clone https://github.com/EliverLara/Nordic
 cd "$(TEMP_DIR)"
+# Install Nordzy Cursors by alvatip
 git clone https://github.com/alvatip/Nordzy-cursors && cd Nordzy-cursors
 ./install.sh
 cd .. && rm -rf Nordzy-cursors
+# Configure kitty to use correct theming and transparency
 mkdir -P ~/.config/kitty
 mv kitty.conf ~/.config/kitty/kitty.conf
+# Set background
 mv bg.png ~/Pictures/bg.png && feh --bg-fill ~/Pictures/bg.png
 
 # Notify user that process terminated successfully
 echo "Installation completed successfully. No errors reported."
+exit
