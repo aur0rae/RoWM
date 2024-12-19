@@ -87,17 +87,13 @@ cd "$(TEMP_DIR)"
 echo "Configuring DWM to launch on login..."
 
 if [[ ! -f "~/.xinitrc" ]]; then
-	touch ~/.xinitrc
 	echo -e ". .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
 else
 	echo "Error: ~/.xinitrc already exists. Exiting..."
 	exit
 fi
 
-if [[ ! -f "~/.bash_profile" ]]; then
-	touch ~/.bash_profile
-fi
-echo -e "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" >> ~/.bash_profile
+echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' >> ~/.bash_profile
 
 
 # Configure bash prompt
