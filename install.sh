@@ -74,7 +74,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 # Move dwm, dmenu, and slstatus into appropriate hidden folders under user's home directory and compile
 echo "Compiling DWM and suckless software..."
 
-for word in "dwm dmenu slstatus"; do
+for suckless in dwm dmenu slstatus; do
 	mv "$(TEMP_DIR)"/${word} ~/.${word}
 	cd ~/.${word}
 	sudo make clean install 
@@ -86,7 +86,7 @@ cd "$(TEMP_DIR)"
 # Edit files to make DWM launch on startup and set background properly
 echo "Configuring DWM to launch on login..."
 
-if [ !-f "~/.xinitrc" ]; then
+if [[ ! -f "~/.xinitrc" ]]; then
 	touch ~/.xinitrc
 	echo -e ". .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
 else
@@ -94,7 +94,7 @@ else
 	exit
 fi
 
-if [ !-f "~/.bash_profile" ]; then
+if [[ ! -f "~/.bash_profile" ]]; then
 	touch ~/.bash_profile
 fi
 echo -e "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" >> ~/.bash_profile
