@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if this is running with root permissions - it should not be
 if [[ "$EUID" = 0 ]]
