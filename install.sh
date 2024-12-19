@@ -3,14 +3,14 @@
 # Update and install software with the selected package manager
 deb_install() {
 	sudo apt update
-	sudo apt install -y fzf zoxide batcat nala feh kitty rofi picom thunar lxpolkit x11-xserver-utils pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git firefox-esr flatpak
+	sudo apt install -y fzf zoxide batcat nala feh kitty rofi picom thunar lxpolkit lxappearance x11-xserver-utils pavucontrol build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git firefox-esr flatpak
         # Configure nala to use best available mirrors
 	sudo nala fetch
 }
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm bat zoxide fzf eza base-devel libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight alsa-utils feh kitty rofi picom thunar lxpolkit pavucontrol git firefox flatpak
+	sudo pacman -S --noconfirm bat zoxide fzf eza base-devel libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight alsa-utils feh kitty rofi picom thunar lxpolkit lxappearance pavucontrol git firefox flatpak
 	# Install paru
 	git clone https://aur.archlinux.org/paru.git && cd paru
         makepkg -si
