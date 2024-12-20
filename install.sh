@@ -46,13 +46,11 @@ if [[ -f "/etc/os-release" ]]; then
 		debian|ubuntu)
 			echo "Using apt to update, install dependancies, base apps, Flatpak, and Nala..."
 			deb_install
-			optional_install=$(apt install)
 			;;
 		
 		arch|endeavour|manjaro)
 			echo "Using pacman to update, install dependancies, base apps, Flatpak, and Paru..."
 			arch_install
-			optional_install=$(pacman -S)
 			;;
 		
 		*)
@@ -77,13 +75,13 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 echo "Compiling DWM and suckless software..."
 
 for suckless in dwm dmenu slstatus; do
-	mv "$(TEMP_DIR)"/${word} ~/.${word}
+	mv '$(TEMP_DIR)'/${word} ~/.${word}
 	cd ~/.${word}
 	sudo make clean install 
 done
 
 # Return to expected working directory
-cd "$(TEMP_DIR)"
+cd '$(TEMP_DIR)'
 
 # Edit files to make DWM launch on startup and set background properly
 echo "Configuring DWM to launch on login..."
@@ -111,7 +109,7 @@ echo "Installing themes (set with lxappearance)..."
 
 # Install Nordic theme by EliverLara 
 cd /usr/share/theme && sudo git clone https://github.com/EliverLara/Nordic
-cd "$(TEMP_DIR)"
+cd '$(TEMP_DIR)'
 
 # Install Nordzy Cursors by alvatip
 git clone https://github.com/alvatip/Nordzy-cursors 
