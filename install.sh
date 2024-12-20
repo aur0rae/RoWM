@@ -46,11 +46,13 @@ if [[ -f "/etc/os-release" ]]; then
 		debian|ubuntu)
 			echo "Using apt to update, install dependancies, base apps, Flatpak, and Nala..."
 			deb_install
+			optional_install=$(apt install)
 			;;
 		
 		arch|endeavour|manjaro)
 			echo "Using pacman to update, install dependancies, base apps, Flatpak, and Paru..."
 			arch_install
+			optional_install=$(pacman -S)
 			;;
 		
 		*)
@@ -130,23 +132,31 @@ mv bg.png ~/Pictures/bg.png && feh --bg-fill ~/Pictures/bg.png
 echo -n "Installation completed successfully. No errors reported."
 
 
-flatpak_install() {
-	flatpak install flathub com.discordapp.Discord
-	flatpak install flathub com.valvesoftware.Steam
-	flatpak install flathub org.prismlauncher.PrismLauncher
-	flatpak install flathub one.ablaze.floorp
-	flatpak install flathub org.gimp.GIMP
-	flatpak install flathub org.libreoffice.LibreOffice
-	flatpak install flathub org.mozilla.Thunderbird
-	flatpak install flathub com.obsproject.Studio
+# Optionally install additional packages
+optional_install() {
+	case "$ID" in
+		debian|ubuntu)
+			flatpak install flathub com.discordapp.Discord
+			flatpak install flathub com.valvesoftware.Steam
+			flatpak install flathub org.prismlauncher.PrismLauncher
+			flatpak install flathub one.ablaze.floorp
+			flatpak install flathub org.gimp.GIMP
+			flatpak install flathub org.libreoffice.LibreOffice
+			flatpak install flathub org.mozilla.Thunderbird
+			flatpak install flathub com.obsproject.Studio
+			;;
+		
+		arch|endeavour|manjaro)
+			paru -S deluge deluge-gtk floorp gimp libreoffice-fresh thunderbird obs-studio discord steam prismlauncher jre17-openjdk jre21-openjdk jre8-openjdk yt-dlp 
+			;;
+	esac
 }
 
-# Optionally install additional packages with Flatpak
 while true; do
 	read -p "Install additional software? (Y/N): " confirm
 	if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
 		echo "Installing..."
-		flatpak_install
+		optional_install
 		echo "Finished installing additional software. No errors reported"
 		break
 
