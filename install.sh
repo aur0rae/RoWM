@@ -121,7 +121,7 @@ cd ..
 rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
-mkdir -P ~/.config/kitty
+mkdir -p ~/.config/kitty
 mv kitty.conf ~/.config/kitty/kitty.conf
 
 # Set background
