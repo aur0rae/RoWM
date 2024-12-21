@@ -110,7 +110,7 @@ rm -rf mybash
 echo "Installing themes (set with lxappearance)..."
 
 # Install Nordic theme by EliverLara 
-mkdir -p /usr/share/theme
+sudo mkdir -p /usr/share/theme
 cd /usr/share/theme 
 sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
