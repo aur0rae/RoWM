@@ -77,8 +77,8 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 echo "Compiling DWM and suckless software..."
 
 for suckless in dwm dmenu slstatus; do
-	mv $TEMP_DIR/${word} ~/.${word}
-	cd ~/.${word}
+	mv $TEMP_DIR/${suckless} ~/.${suckless}
+	cd ~/.${suckless}
 	sudo make clean install 
 done
 
