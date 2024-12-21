@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Check if this is running with root permissions - it should not be
-if [[ "$EUID" = 0 ]]
+if [[ "$EUID" = 0 ]]; then
 	echo "Running this script as root may break things. Please run without superuser permissions."
 	exit
 fi
