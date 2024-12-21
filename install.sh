@@ -20,7 +20,7 @@ deb_install() {
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm base-devel xorg-xinit libx11 libxcb cmake libxft libxinerama xorg-xev xorg-xbacklight git
+	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama xorg-xev xorg-xbacklight git
 	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty picom thunar polkit-gnome lxappearance pavucontrol neovim flatpak
 
 	# Install paru
@@ -127,6 +127,7 @@ mkdir -p ~/.config/kitty
 mv kitty.conf ~/.config/kitty/kitty.conf
 
 # Set background
+mkdir ~/Pictures
 mv bg.png ~/Pictures/bg.png 
 feh --bg-fill ~/Pictures/bg.png
 
