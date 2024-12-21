@@ -110,7 +110,9 @@ rm -rf mybash
 echo "Installing themes (set with lxappearance)..."
 
 # Install Nordic theme by EliverLara 
-cd /usr/share/theme && sudo git clone https://github.com/EliverLara/Nordic
+mkdir -p /usr/share/theme
+cd /usr/share/theme 
+sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
 
 # Install Nordzy Cursors by alvatip
@@ -121,11 +123,12 @@ cd ..
 rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
-mkdir -P ~/.config/kitty
+mkdir -p ~/.config/kitty
 mv kitty.conf ~/.config/kitty/kitty.conf
 
 # Set background
-mv bg.png ~/Pictures/bg.png && feh --bg-fill ~/Pictures/bg.png
+mv bg.png ~/Pictures/bg.png 
+feh --bg-fill ~/Pictures/bg.png
 
 
 # Notify user that process terminated successfully
