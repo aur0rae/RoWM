@@ -20,7 +20,7 @@ deb_install() {
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm base-devel xorg-xinit libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight git
+	sudo pacman -S --noconfirm cmake base-devel xorg-xinit libx11 libxcb cmake libxft libxinerama libxcb-res xorg-xev xorg-xbacklight git
 	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty picom thunar polkit-gnome lxappearance pavucontrol neovim flatpak
 
 	# Install paru
