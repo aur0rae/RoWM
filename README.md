@@ -6,12 +6,15 @@ This is my custom fork of Suckless's dwm, loosely based on Chris Titus's "dwm-ti
 ## Installation
 `install.sh` is an automated script I wrote to install and configure everything needed. It is designed for use with Debian and Arch based systems, though the system can be run on most common distros if you do it manually by simply moving the Suckless folders to corresponding hidden ones under your user's home directory.
 
-The script preinstalls all the dependencies needed to build and run dwm, plus a compositor (picom), software to set a wallpaper (feh), flatpak, the GNOME polkit agent, a file manager (thunar), and a terminal (kitty). There is also an optional post-install part to the script that will pull in a bunch of other stuff; read the script for more details.
+The script preinstalls all the dependencies needed to build and run dwm, plus a compositor (picom), software to set a wallpaper (feh), flatpak, the GNOME polkit agent, a file manager (thunar), a screenshot utility (flameshot), and a terminal (kitty). There is also an optional post-install part to the script that will pull in a bunch of other stuff; read the script for more details.
 
 ## Patches
 This version of dwm currently is patched with the following:
 - **autostart** - runs the `autostart.sh` script located under dwm's folder. This will set the wallpaper and launch the compositor and polkit at startup.
+- **barpadding** - adds a pretty border around the top bar that makes it float.
 - **cursorwarp** - "warps" the cursor to the center of the window upon spawning or switching windows, etc.
+- **fullgaps** - adds gaps around windows to make them float.
+- **fullscreen** - allows hiding of the bar in the "Monocle" layout.
 - **systray** - a system tray with icons for apps running in the background.
 - **viewontag** - shifts the current desktop when moving windows to different workspaces.
 
