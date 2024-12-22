@@ -9,22 +9,22 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const int vertpad            = 10;       /* vertical padding of bar */
 static const int sidepad            = 10;       /* horizontal padding of bar */
-static const char *fonts[]          = { "monospace:size=14" };
+static const char *fonts[]          = { "monospace:size=14", "fontawesome:size=14" };
 static const char dmenufont[]       = "monospace:size=14"; 
 
-static const char col_gray1[]            = "#434C5E";
-static const char col_gray2[]            = "#434C5E";
+static const char col_gray1[]            = "#434c5e";
+static const char col_gray2[]            = "#434c5e";
 static const char col_gray3[]            = "#eceff4";
 static const char col_gray4[]            = "#eceff4";
-static const char col_cyan[]             = "#2E3440";
+static const char col_gray5[]            = "#3b4252";
+static const char col_cyan[]             = "#2e3440";
 static const char *colors[][3]           = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_gray5,  col_cyan  },
 };
 
-/* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -44,9 +44,9 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ "[M]",      monocle },
+	{ "",      tile },    /* first entry is default */
+	{ "",      NULL },    /* no layout function means floating behavior */
+	{ "",      monocle },
 };
 
 /* key definitions */
