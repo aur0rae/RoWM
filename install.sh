@@ -89,7 +89,7 @@ cd $TEMP_DIR
 echo "Configuring DWM to launch on login..."
 
 if [[ ! -f "~/.xinitrc" ]]; then
-	echo "exec dwm" >> ~/.xinitrc
+	echo -e "slstatus &\nexec dwm" >> ~/.xinitrc
 else
 	echo "Error: ~/.xinitrc already exists. Exiting..."
 	exit
