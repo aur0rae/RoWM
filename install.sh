@@ -11,8 +11,8 @@ fi
 deb_install() {
 	sudo apt update
 	sudo apt upgrade
-	sudo apt install -y x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils git
-	sudo apt install -y feh lxpolkit fzf zoxide batcat nala kitty thunar lxappearance pavucontrol neovim flatpak
+	sudo apt install -y xorg-server x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils wget git
+	sudo apt install -y feh polkit-gnome fzf zoxide batcat nala kitty thunar lxappearance pavucontrol neovim flatpak
 
 	# Configure nala to use best available mirrors
 	sudo nala fetch
@@ -20,7 +20,7 @@ deb_install() {
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama xorg-xev xorg-xbacklight git
+	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama xorg-xev xorg-xbacklight wget git
 	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty picom thunar polkit-gnome lxappearance pavucontrol neovim flatpak
 
 	# Install paru
@@ -77,8 +77,8 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 echo "Compiling DWM and suckless software..."
 
 for suckless in dwm dmenu slstatus; do
-	mv $TEMP_DIR/${suckless} ~/.${suckless}
-	cd ~/.${suckless}
+	mv $TEMP_DIR/${suckless} $HOME/.${suckless}
+	cd $HOME/.${suckless}
 	sudo make clean install 
 done
 
@@ -89,7 +89,7 @@ cd $TEMP_DIR
 echo "Configuring DWM to launch on login..."
 
 if [[ ! -f "~/.xinitrc" ]]; then
-	echo -e "bash .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
+	echo "exec dwm" >> ~/.xinitrc
 else
 	echo "Error: ~/.xinitrc already exists. Exiting..."
 	exit
@@ -102,7 +102,7 @@ echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' >
 echo "Setting custom bash prompt..."
 
 git clone https://github.com/aurorae-nb/mybash
-mv mybash/bashrc-simple-cyan ~/.bashrc
+mv mybash/bashrc-simple-cyan $HOME/.bashrc
 rm -rf mybash
 
 
@@ -125,14 +125,14 @@ cd ..
 rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
-mkdir -p ~/.config/kitty
-mv kitty.conf ~/.config/kitty/kitty.conf
+mkdir -p $HOME/.config/kitty
+mv kitty.conf $HOME/.config/kitty/kitty.conf
 
 # Set background
-mkdir ~/Pictures
-mv bg.png ~/Pictures/bg.png 
-cd ~
-feh --bg-fill ~/Pictures/bg.png
+mkdir -p $HOME/Pictures
+mv bg.png $HOME/Pictures/bg.png 
+cd $HOME
+feh --bg-fill $HOME/Pictures/bg.png
 
 
 # Notify user that process terminated successfully
