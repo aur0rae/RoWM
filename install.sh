@@ -11,8 +11,8 @@ fi
 deb_install() {
 	sudo apt update
 	sudo apt upgrade
-	sudo apt install -y xorg-server x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev xdg-utils wget git
-	sudo apt install -y feh polkit-gnome fzf zoxide batcat nala kitty thunar lxappearance pavucontrol neovim flatpak
+	sudo apt install -y xorg x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev libimlib2-dev wget git
+	sudo apt install -y feh policykit-1-gnome fzf zoxide batcat nala kitty thunar lxappearance pavucontrol neovim flatpak
 
 	# Configure nala to use best available mirrors
 	sudo nala fetch
@@ -20,7 +20,7 @@ deb_install() {
 
 arch_install() {
 	sudo pacman -Syu --noconfirm
-	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama xorg-xev xorg-xbacklight wget git
+	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama wget git
 	sudo pacman -S --noconfirm bat zoxide fzf eza feh kitty picom thunar polkit-gnome lxappearance pavucontrol neovim flatpak
 
 	# Install paru
