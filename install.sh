@@ -111,8 +111,8 @@ echo "Configuring look and feel (set with lxappearance)..."
 
 # Install Nordic theme by EliverLara 
 echo "Installing theme..."
-sudo mkdir -p /usr/share/theme
-cd /usr/share/theme 
+sudo mkdir -p /usr/share/themes
+cd /usr/share/themes
 sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
 
