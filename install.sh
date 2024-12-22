@@ -89,7 +89,7 @@ cd $TEMP_DIR
 echo "Configuring DWM to launch on login..."
 
 if [[ ! -f "~/.xinitrc" ]]; then
-	echo -e ". .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
+	echo -e "bash .fehbg &\nslstatus &\nexec dwm" >> ~/.xinitrc
 else
 	echo "Error: ~/.xinitrc already exists. Exiting..."
 	exit
@@ -107,15 +107,17 @@ rm -rf mybash
 
 
 # Apply themes
-echo "Installing themes (set with lxappearance)..."
+echo "Configuring look and feel (set with lxappearance)..."
 
 # Install Nordic theme by EliverLara 
+echo "Installing theme..."
 sudo mkdir -p /usr/share/theme
 cd /usr/share/theme 
 sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
 
 # Install Nordzy Cursors by alvatip
+echo "Installing cursors..."
 git clone https://github.com/alvatip/Nordzy-cursors 
 cd Nordzy-cursors
 ./install.sh
@@ -129,6 +131,7 @@ mv kitty.conf ~/.config/kitty/kitty.conf
 # Set background
 mkdir ~/Pictures
 mv bg.png ~/Pictures/bg.png 
+cd ~
 feh --bg-fill ~/Pictures/bg.png
 
 
