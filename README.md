@@ -27,7 +27,7 @@ Repos used and pulled in by the script include:
 - **MyBash** by me, [aurorae-nb](https://github.com/aurorae-nb/mybash).
 
 ## Screenshots
-*Running DWM on my Laptop with Arch Linux (btw) several months ago*
+*Running DWM on my Laptop with Arch Linux (btw)*
 <img alt="DWM on Arch Linux" src="https://github.com/aurorae-nb/RoWM/blob/main/arch-dwm.png">
 
 *DWM running on my RPi 4 for a pretty but lightweight desktop*
