@@ -1,4 +1,4 @@
-<img src="https://github.com/aurorae-nb/RoWM/res/blob/main/banner.png">
+<img src="https://github.com/aurorae-nb/RoWM/blob/main/res/banner.png">
 
 ## About
 This is my custom fork of Suckless's dwm, loosely based on Chris Titus's "dwm-titus." My goal is to make a more up-to-date and user-friendly version of his vision but with a bit more visual flare and personal touch.
@@ -28,7 +28,7 @@ Repos used and pulled in by the script include:
 
 ## Screenshots
 *Running DWM on my Laptop with Arch Linux (btw)*
-<img alt="DWM on Arch Linux" src="https://github.com/aurorae-nb/RoWM/res/blob/main/arch-dwm.png">
+<img alt="DWM on Arch Linux" src="https://github.com/aurorae-nb/RoWM/blob/main/res/arch-dwm.png">
 
 *DWM running on my RPi 4 for a pretty but lightweight desktop*
-<img alt="DWM on Debian Linux" src="https://github.com/aurorae-nb/RoWM/res/blob/main/debian-dwm.png">
+<img alt="DWM on Debian Linux" src="https://github.com/aurorae-nb/RoWM/blob/main/res/debian-dwm.png">
