@@ -6,7 +6,6 @@ if [[ "$EUID" = 0 ]]; then
 	exit
 fi
 
-
 # Update and install software with the selected package manager
 deb_install() {
 	sudo apt update
@@ -31,10 +30,8 @@ arch_install() {
 	rm -rf paru
 }
 
-
 # Set working directory
 TEMP_DIR=$(pwd)
-
 
 # Determine distribution
 echo "Determining distribution and package manager..."
@@ -66,12 +63,10 @@ else
 
 fi
 
-
 # Configure Flatpak to use Flathub
 echo "Configuring Flatpak..."
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
 
 # Move dwm, dmenu, and slstatus into appropriate hidden folders under user's home directory and compile
 echo "Compiling DWM and suckless software..."
@@ -98,18 +93,15 @@ fi
 
 echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' >> ~/.bash_profile
 
-
 # Configure bash prompt
 echo "Setting custom bash prompt..."
 rm $HOME/.bashrc
 git clone https://github.com/aur0rae/MyBash
-mv mybash/bash-simple $HOME/.bashrc
+mv MyBash/bash-simple $HOME/.bashrc
+rm -rf MyBash
 sudo mkdir /usr/share/git
 cd /usr/share/git
 sudo wget https://github.com/git/git/raw/refs/heads/master/contrib/completion/git-prompt.sh
-cd $TEMP_DIR
-rm -rf mybash
-
 
 # Apply themes
 echo "Configuring look and feel (set with lxappearance)..."
@@ -140,10 +132,8 @@ mv $TEMP_DIR/res/bg.png $HOME/Pictures/bg.png
 cd $HOME
 feh --bg-scale $HOME/Pictures/bg.png
 
-
 # Notify user that process terminated successfully
 echo -n "Installation completed successfully. No errors reported."
-
 
 # Optionally install additional packages
 optional_install() {
