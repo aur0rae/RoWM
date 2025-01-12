@@ -101,8 +101,8 @@ echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' >
 
 # Configure bash prompt
 echo "Setting custom bash prompt..."
-
-git clone https://github.com/aurorae-nb/mybash
+rm $HOME/.bashrc
+git clone https://github.com/aur0rae/MyBash
 mv mybash/bashrc-simple-cyan $HOME/.bashrc
 rm -rf mybash
 
@@ -127,7 +127,7 @@ rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
 mkdir -p $HOME/.config/alacritty
-mv kitty.conf $HOME/.config/alacritty/alacritty.yml
+mv alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
 # Set background
 mkdir -p $HOME/Pictures
@@ -144,7 +144,7 @@ echo -n "Installation completed successfully. No errors reported."
 optional_install() {
 	case "$ID" in
 		debian|ubuntu)
-			flatpak install flathub com.discordapp.Discord
+			flatpak install flathub dev.vencord.Vesktop
 			flatpak install flathub com.valvesoftware.Steam
 			flatpak install flathub org.prismlauncher.PrismLauncher
 			flatpak install flathub one.ablaze.floorp
@@ -155,7 +155,7 @@ optional_install() {
 			;;
 		
 		arch|endeavour|manjaro)
-			paru -S deluge deluge-gtk floorp gimp libreoffice-fresh thunderbird obs-studio discord steam prismlauncher jre17-openjdk jre21-openjdk jre8-openjdk yt-dlp 
+			paru -S deluge deluge-gtk floorp gimp libreoffice-fresh thunderbird obs-studio vencord steam prismlauncher jre17-openjdk jre21-openjdk jre8-openjdk yt-dlp 
 			;;
 	esac
 }
