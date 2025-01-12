@@ -12,7 +12,7 @@ deb_install() {
 	sudo apt update
 	sudo apt upgrade
 	sudo apt install -y xorg x11-xserver-utils build-essential libx11-dev libxft-dev libxinerama-dev libx11-xcb-dev libxcb-res0-dev libimlib2-dev wget git
-	sudo apt install -y fonts-font-awesome feh policykit-1-gnome fzf zoxide batcat nala kitty flameshot thunar lxappearance pavucontrol neovim flatpak
+	sudo apt install -y fonts-font-awesome feh policykit-1-gnome fzf zoxide bat nala alacritty flameshot thunar lxappearance pavucontrol neovim flatpak
 
 	# Configure nala to use best available mirrors
 	sudo nala fetch
@@ -21,7 +21,7 @@ deb_install() {
 arch_install() {
 	sudo pacman -Syu --noconfirm
 	sudo pacman -S --noconfirm base-devel xorg-server xorg-xinit libx11 libxcb cmake libxft libxinerama wget git
-	sudo pacman -S --noconfirm awesome-terminal-fonts bat zoxide fzf eza feh kitty picom flameshot thunar polkit-gnome lxappearance pavucontrol neovim flatpak
+	sudo pacman -S --noconfirm awesome-terminal-fonts bat zoxide fzf eza feh alacritty picom flameshot thunar polkit-gnome lxappearance pavucontrol neovim flatpak
 
 	# Install paru
 	git clone https://aur.archlinux.org/paru.git
@@ -79,6 +79,7 @@ echo "Compiling DWM and suckless software..."
 for suckless in dwm dmenu; do
 	mv $TEMP_DIR/${suckless} $HOME/.${suckless}
 	cd $HOME/.${suckless}
+ 	sudo make
 	sudo make clean install 
 done
 
@@ -125,8 +126,8 @@ cd ..
 rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
-mkdir -p $HOME/.config/kitty
-mv kitty.conf $HOME/.config/kitty/kitty.conf
+mkdir -p $HOME/.config/alacritty
+mv kitty.conf $HOME/.config/alacritty/alacritty.yml
 
 # Set background
 mkdir -p $HOME/Pictures
