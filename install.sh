@@ -114,14 +114,6 @@ sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
 mv src/gtk-3.0 $HOME/.config/
 
-# Install Nordzy Cursors by alvatip
-echo "Installing cursors..."
-git clone https://github.com/alvatip/Nordzy-cursors 
-cd Nordzy-cursors
-./install.sh
-cd .. 
-rm -rf Nordzy-cursors
-
 # Configure kitty to use correct theming and transparency
 mkdir -p $HOME/.config/alacritty
 mv $TEMP_DIR/src/alacritty.yml $HOME/.config/alacritty/alacritty.yml
