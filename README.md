@@ -22,7 +22,6 @@ The default wallpaper used in this project is Debian 12's "Emerald theme," by Ju
 
 Repos used and pulled in by the script include:
 - **dwm** and **dmenu** by [Suckless Software](https://suckless.org/).
-- **Nordzy Cursors** by [alvatip](https://github.com/guillaumeboehm/Nordzy-cursors).
 - **Nordic Theme** by [EliverLara](https://github.com/EliverLara/Nordic).
 - **MyBash** by me, [aur0rae](https://github.com/aur0rae/MyBash).
 
