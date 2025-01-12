@@ -120,6 +120,7 @@ sudo mkdir -p /usr/share/themes
 cd /usr/share/themes
 sudo git clone https://github.com/EliverLara/Nordic
 cd $TEMP_DIR
+mv src/gtk-3.0 $HOME/.config/
 
 # Install Nordzy Cursors by alvatip
 echo "Installing cursors..."
