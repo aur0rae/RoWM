@@ -131,13 +131,13 @@ rm -rf Nordzy-cursors
 
 # Configure kitty to use correct theming and transparency
 mkdir -p $HOME/.config/alacritty
-mv alacritty.yml $HOME/.config/alacritty/alacritty.yml
+mv $TEMP_DIR/src/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
 # Set background
 mkdir -p $HOME/Pictures
-mv bg.png $HOME/Pictures/bg.png 
+mv $TEMP_DIR/res/bg.png $HOME/Pictures/bg.png 
 cd $HOME
-feh --bg-fill $HOME/Pictures/bg.png
+feh --bg-scale $HOME/Pictures/bg.png
 
 
 # Notify user that process terminated successfully
