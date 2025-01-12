@@ -134,6 +134,7 @@ feh --bg-scale $HOME/Pictures/bg.png
 
 # Notify user that process terminated successfully
 echo -n "Installation completed successfully. No errors reported."
+rm -rf $TEMP_DIR
 
 # Optionally install additional packages
 optional_install() {
