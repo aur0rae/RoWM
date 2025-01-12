@@ -103,7 +103,7 @@ echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' >
 echo "Setting custom bash prompt..."
 rm $HOME/.bashrc
 git clone https://github.com/aur0rae/MyBash
-mv mybash/bashrc-simple-cyan $HOME/.bashrc
+mv mybash/bash-clean $HOME/.bashrc
 rm -rf mybash
 
 
