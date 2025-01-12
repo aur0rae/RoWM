@@ -104,6 +104,10 @@ echo "Setting custom bash prompt..."
 rm $HOME/.bashrc
 git clone https://github.com/aur0rae/MyBash
 mv mybash/bash-clean $HOME/.bashrc
+mkdir /usr/share/git
+cd /usr/share/git
+wget https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+cd $TEMP_DIR
 rm -rf mybash
 
 
