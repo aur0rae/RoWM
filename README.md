@@ -1,12 +1,12 @@
-<img src="https://github.com/aurorae-nb/RoWM/blob/main/res/banner.png">
-
 ## About
-This is my custom fork of Suckless's dwm, loosely based on Chris Titus's "dwm-titus." My goal is to make a more up-to-date and user-friendly version of his vision but with a bit more visual flare and personal touch.
+This project is a customized fork of Suckless's `dwm` meant for running on Raspberry Pi computers and other cases where a lighter graphical solution is preferred.
 
 ## Installation
-`install.sh` is an automated script I wrote to install and configure everything needed. It is designed for use with Debian and Arch based systems, though the system can be run on most common distros if you do it manually by simply moving the Suckless folders to corresponding hidden ones under your user's home directory.
-
-The script preinstalls all the dependencies needed to build and run dwm, plus a compositor (picom), software to set a wallpaper (feh), flatpak, the GNOME polkit agent, a file manager (thunar), a screenshot utility (flameshot), and a terminal (kitty). There is also an optional post-install part to the script that will pull in a bunch of other stuff; read the script for more details.
+To install and configure everything, just run `install.sh`. It will request user input for passwords as needed for `sudo` permissions, as you cannot (and should not attempt to) run the program as root.
+```bash
+chmod +x install.sh
+. ./install.sh
+```
 
 ## Patches
 This version of dwm currently is patched with the following:
@@ -24,7 +24,7 @@ Repos used and pulled in by the script include:
 - **dwm** and **dmenu** by [Suckless Software](https://suckless.org/).
 - **Nordzy Cursors** by [alvatip](https://github.com/guillaumeboehm/Nordzy-cursors).
 - **Nordic Theme** by [EliverLara](https://github.com/EliverLara/Nordic).
-- **MyBash** by me, [aurorae-nb](https://github.com/aurorae-nb/mybash).
+- **MyBash** by me, [aur0rae](https://github.com/aur0rae/MyBash).
 
 ## Screenshots
 *Running DWM on my Laptop with Arch Linux (btw)*
