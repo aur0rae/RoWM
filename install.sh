@@ -73,7 +73,7 @@ for suckless in dwm dmenu; do
 	mv $TEMP_DIR/src/${suckless} $HOME/.${suckless}
 	cd $HOME/.${suckless}
  	sudo make
-	sudo make clean install 
+	sudo make clean install
 done
 
 # Return to expected working directory
@@ -91,21 +91,24 @@ fi
 
 echo -e 'if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi' > ~/.bash_profile
 
+# Make directories
+echo "Populating home directory..."
+for dir in Desktop Documents Downloads Music Pictures Projects Videos; do
+	mkdir $HOME/${dir}
+done
+
 # Configure bash prompt
 echo "Setting custom bash prompt..."
-rm $HOME/.bashrc
-git clone https://github.com/aur0rae/MyBash
-mv MyBash/bash-simple $HOME/.bashrc
-rm -rf MyBash
+
+echo -e "source /usr/share/git/git-prompt.sh" >> ~/.bashrc
+echo -e 'PS1="\\[\\e[1;36m\\]╭ \\u@\\h \\[\\e[0;37m\\]in \\[\\e[1;35m\\]\\w\\$(__git_ps1)\\[\\e[0;37m\\] at \\[\\e[1;36m\\]\\@\\n╰─ \\[\\e[0;36m\\]𝝺 \\[\\e[0;37m\\]' >> ~/.bashrc
+
 sudo mkdir /usr/share/git
 cd /usr/share/git
 sudo wget https://github.com/git/git/raw/refs/heads/master/contrib/completion/git-prompt.sh
 
-# Apply themes
-echo "Configuring look and feel (set with lxappearance)..."
-
 # Install Nordic theme by EliverLara 
-echo "Installing theme..."
+echo "Installing themes..."
 sudo mkdir -p /usr/share/themes
 cd /usr/share/themes
 sudo git clone https://github.com/EliverLara/Nordic
@@ -116,8 +119,7 @@ mv src/gtk-3.0 $HOME/.config/
 mkdir -p $HOME/.config/alacritty
 mv $TEMP_DIR/src/alacritty.yml $HOME/.config/alacritty/alacritty.yml
 
-# Set background
-mkdir -p $HOME/Pictures
+# Set Background
 mv $TEMP_DIR/res/bg.png $HOME/Pictures/bg.png 
 cd $HOME
 
@@ -146,18 +148,23 @@ optional_install() {
 }
 
 while true; do
-	read -p "Install additional software? (Y/N): " confirm
+	read -p "Install additional software? (does not work on ARM) (y/N): " confirm
 	if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
 		echo "Installing..."
 		optional_install
 		echo "Finished installing additional software. No errors reported"
 		break
 
-	elif [[ $confirm == [nN] || $confirm == [nN][oO] ]]; then
+	elif [[ $confirm == [nN] || $confirm == [nN][oO] || $confirm ==[\n]]; then
 		break
 	else
 		echo "Error: Improper input. Please try again."
 	fi
 done
+
+# Finish up final bit of setup
+echo "Starting Xorg server..."
 startx
+
+sleep 10s
 feh --bg-scale $HOME/Pictures/bg.png
