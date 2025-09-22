@@ -1,0 +1,18 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='eza'
+alias ll='eza -la'
+alias cat='batcat'
+alias grep='grep --color=auto'
+eval "$(zoxide init --cmd cd bash)"
+
+# Format bash prompt to
+#   ╭ [user@hostname] [directory]
+#   ╰─ 𝝺
+#
+PS1="\[\e[1;36m\]╭ [\u@\h:\w]\n\[\e[1;36m\]╰─ \[\e[0;36m\]𝝺 \[\e[0;37m\]"

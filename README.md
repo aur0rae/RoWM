@@ -1,5 +1,5 @@
 ## About
-This project is a customized fork of Suckless's `dwm` meant for running on Raspberry Pi computers and other cases where a lighter graphical solution is preferred.
+This project is a customized fork of Suckless's `dwm` for running a simple but pretty desktop on lower power computers.
 
 ## Installation
 To install and configure everything, just run `install.sh`. It will request user input for passwords as needed for `sudo` permissions, as you cannot (and should not attempt to) run the program as root.
@@ -10,10 +10,13 @@ chmod +x install.sh
 
 ## Patches
 This version of dwm currently is patched with the following:
-- **autostart** - runs the `autostart.sh` script located under dwm's folder. This will set the wallpaper and launch the compositor and polkit at startup.
-- **cursorwarp** - "warps" the cursor to the center of the window upon spawning or switching windows, etc.
+-# Note: patches cannot be directly applied to new DWM versions due to conflicts, and the backlight and amixer patches have been tweaked to work correctly
+- **amixer-integration** - allows for control over the system audio using media keys.
+- **autostart** - runs the `autostart.sh` script located under dwm's folder. This sets the wallpaper and launches picom at startup.
+- **backlight** - allows for convenient control over screen brightness.
+- **cursorwarp** - "warps" the cursor to the center of the window upon spawning or switching focus.
 - **fullgaps** - adds gaps around windows to make them float.
-- **fullscreen** - allows hiding of the bar in the "Monocle" layout.
+- **reload** - allows hotreloading of DWM while running to streamline patching and configuring.
 - **status2d-barpadding-systray** - a system tray and status bar that makes the top bar float.
 - **viewontag** - shifts the current desktop when moving windows to different workspaces.
 
@@ -22,8 +25,9 @@ The default wallpaper used in this project is Debian 12's "Emerald theme," by Ju
 
 Repos used and pulled in by the script include:
 - **dwm** and **dmenu** by [Suckless Software](https://suckless.org/).
-- **Nordic Theme** by [EliverLara](https://github.com/EliverLara/Nordic).
 - **MyBash** by me, [aur0rae](https://github.com/aur0rae/MyBash).
+
+Thanks to Suckless Software, Chris Titus Tech, Glockenspiel, and everyone behind DWM's patches!
 
 ## Screenshots
 *Running DWM on my Laptop with Arch Linux (btw)*
