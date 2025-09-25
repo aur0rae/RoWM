@@ -115,7 +115,7 @@ echo "Determining distribution and package manager..."
 
 if [ -f "/etc/os-release" ]; then
 	. /etc/os-release
-	echo 'Done!\n'
+	echo "Done!\n"
 	case "$ID" in
 		debian|ubuntu)
 			echo "$ID detected. Using apt to update, install dependancies, and configure Nala...\n"
@@ -187,7 +187,7 @@ echo "Configuring environment..."
 
 # Make sure background is set
 cp $TEMP_DIR/res/bg.png $HOME/.bg.png
-echo '#!/bin/sh\nfeh --no-fehbg --bg-fill '$HOME/.bg.png'' > .fehbg
+echo "#!/bin/sh\nfeh --no-fehbg --bg-fill '$HOME/.bg.png'" > .fehbg
 
 # Configure bash prompt
 confirm "replace your current BASH prompt" configbash
