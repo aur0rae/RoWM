@@ -1,6 +1,7 @@
-#!/bin/bash
-~/.fehbg
-picom --config /usr/share/doc/picom/examples/picom.sample.conf &
-dunst &
+#!/usr/bin/env sh
+amixer set Master 0
 slstatus &
-nm-applet
+picom --config /usr/share/doc/picom/examples/picom.sample.conf &
+nm-applet&
+dunst &
+~/.fehbg
