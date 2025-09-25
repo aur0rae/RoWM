@@ -65,7 +65,7 @@ deb_install() {
 			zoxide vlc network-manager-gnome brightnessctl picom
 
 	# Install Flatpak
-	if [ INSTFLTPK ]; then
+	if [ $INSTFLTPK = 'Y' ]; then
 		sudo apt install -y flatpak
 	fi
 
@@ -92,7 +92,7 @@ arch_install() {
 			bat eza fzf zoxide vlc brightnessctl picom scrot
 
 	# Install Flatpak
-	if [ INSTFLTPK ]; then
+	if [ $INSTFLTPK = 'Y' ]; then
 		sudo pacman -S --noconfirm flatpak
 	fi
 
@@ -149,11 +149,10 @@ configx() {
 
 # Determine distribution and ask about Flatpak
 echo "Determining distribution and package manager."
-confirm "install Flatpak for additional distro-agnostic package management?" "export INSTFLTPK=Y" "Skipping."
+confirm "install Flatpak for additional distro-agnostic package management?" "export INSTFLTPK=Y" "export INSTFLTPK=N"
 
 if [ -f "/etc/os-release" ]; then
 	. /etc/os-release
-	echo "Done!\n"
 	case "$ID" in
 		debian|*ubuntu*)
 			echo "$ID detected. Using apt to update, install dependancies, and configure Nala...\n"
@@ -176,7 +175,7 @@ else
 fi
 
 # If flatpak was installed, configure Flathub
-if [ INSTFLTPK ]; then
+if [ $INSTFLTPK = 'Y' ]; then
 	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 	echo "Flatpak configured.\n"
 fi
