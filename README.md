@@ -5,16 +5,22 @@ computers.
 ## Installation
 To install and configure everything, just run `install.sh`. It will request user input for passwords as needed for 
 `sudo` permissions, as you cannot (and should not attempt to) run the program as root.
+
+This is intended to be easily run on just about anything UNIX-like that supports Xorg, though on distributions of 
+UNIX, Linux, GNU/Hurd, etc. other than Debian GNU/Linux, all dependencies for DWM must be installed manually before 
+running this script. If you find any issues in the shell script that prevent it from working with shell util 
+implementations other than the GNU Coreutils, please let me know.
+
 ```sh
 chmod +x install.sh
 . ./install.sh
 ```
 
 ## Patches
-This version of dwm currently is patched with the following:
-
-Note: patches cannot be directly applied to new DWM versions due to conflicts, and the backlight and amixer patches 
-have been tweaked to work correctly
+When trying to rebase to a different version of DWM, be mindful that you may need to patch some things by hand. 
+Most of the patches below cannot be automatically applied one after the other, so it gets to be annoying the more 
+patches you have. Additionally, `amixer-integration` and `backlight` had to be manually tweaked a little to work 
+correctly.
 
 - **amixer-integration** - allows for control over the system audio using media keys.
 - **autostart** - runs the `autostart.sh` script located under dwm's folder. This sets the wallpaper and launches 
@@ -56,4 +62,4 @@ Window management:
 <img alt="DWM on Arch Linux" src="https://github.com/aurorae-nb/RoWM/blob/main/res/arch-dwm.png">
 
 *DWM running on my RPi 4 for a pretty but lightweight desktop*
-<img alt="DWM on Debian Linux" src="https://github.com/aurorae-nb/RoWM/blob/main/res/debian-dwm.png">
+<img alt="DWM on Raspberry Pi OS" src="https://github.com/aurorae-nb/RoWM/blob/main/res/debian-dwm.png">

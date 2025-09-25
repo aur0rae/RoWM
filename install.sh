@@ -54,36 +54,78 @@ fi
 # ============================================================= #
 
 deb_install() {
+	# Refresh mirrors and update system
 	sudo apt update
+	sudo apt dist-upgrade
+
+	# Install deps
 	sudo apt install -y xorg build-essential libxft-dev libxinerama-dev wget git \
 			alsa-utils pipewire pipewire-pulse wireplumber network-manager \
 			feh alacritty scrot thunar thunar-volman gvfs bat eza fzf \
 			zoxide vlc network-manager-gnome brightnessctl picom
-	# Configure nala to use best available mirrors
+
+	# Install Flatpak
+	if [ INSTFLTPK ]; then
+		sudo apt install -y flatpak
+	fi
+
+	# Prompt user to install Nala
+	confirm "install Nala and configure mirrors" nala_config "echo Skipping."
+}
+
+nala_config() {
+	# Install Nala
+	sudo apt install nala
+
+	# Select mirrors
 	sudo nala fetch
 }
 
 arch_install() {
-	# TODO: Implement Arch install
-	sleep 10
-	exit
+	# Update system
+	sudo pacman -Syu
+
+	# Install deps
+	sudo pacman -S --noconfirm xorg libx11 libxft libxinerama base-devel wget git \
+			alsa-utils pipewire pipewire-pulse wireplumber thunar \
+			thunar-volman gvfs networkmanager nm-applet alacritty feh \
+			bat eza fzf zoxide vlc brightnessctl picom scrot
+
+	# Install Flatpak
+	if [ INSTFLTPK ]; then
+		sudo pacman -S --noconfirm flatpak
+	fi
+
+	# Prompt user to install Paru
+	confirm "install Paru to manage AUR packages" paru_config "echo Skipping."
+}
+
+paru_config() {
+	# Install Paru
+	git clone https://aur.archlinux.org/paru.git
+	cd $TEMPDIR/paru
+	makepkg -si
+
+	# Clean up after
+	cd $TEMPDIR
+	rm -rf $TEMPDIR/paru
 }
 
 optional_install() {
-	# TODO: Implement script to install extra apps
-	echo "Sorry, this feature is not yet supported. Skipping...\n"
+	# TODO: implement packages to install
+	echo "Sorry, this function is not yet complete. Skipping."
 }
 
 confirm() {
 	while true; do
-	        read -p "Would you like to $1? (Y)es/(N)o: " var
+	        read -p "> Would you like to $1? (Y)es/(N)o: " var
 	        case "$var" in
 	                [yY][eE][sS]|[yY])
 	                        $2
 	                        break
 	                ;;
 			[nN][oO]|[nN])
-				echo "Skipping..."
+				$3
 				break
 			;;
 			*)
@@ -94,12 +136,7 @@ confirm() {
 }
 
 configx() {
-	echo "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" > ~/.bash_profile
-}
-
-configbash() {
-	rm $HOME/bashrc
-	cp $TEMP_DIR/src/bashrc $HOME/bashrc
+	echo "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" > $HOME/.bash_profile
 }
 
 
@@ -110,31 +147,38 @@ configbash() {
 #
 # ============================================================= #
 
-# Determine distribution
-echo "Determining distribution and package manager..."
+# Determine distribution and ask about Flatpak
+echo "Determining distribution and package manager."
+confirm "install Flatpak for additional distro-agnostic package management?" "export INSTFLTPK=Y" "Skipping."
 
 if [ -f "/etc/os-release" ]; then
 	. /etc/os-release
 	echo "Done!\n"
 	case "$ID" in
-		debian|ubuntu)
+		debian|*ubuntu*)
 			echo "$ID detected. Using apt to update, install dependancies, and configure Nala...\n"
 			deb_install
 			;;
-		arch|endeavour|manjaro)
-			echo "$ID is unsupported at this time. Sorry!"
+		arch*|endeavour|manjaro|artix|cachyos)
+			echo "$ID detected. Using pacman to update and install dependancies...\n"
 			arch_install
 			;;
 		*)
-			echo "Sorry, this distribution is not supported."
-			sleep 10
-			exit 1
+			# Catch exceptions for distros like Fedora, OpenSuSE, etc.
+			echo "Sorry, package management on this distribution is not supported."
+			confirm "continue" "break" "exit 1"
 			;;
 	esac
 else
-	echo "Error: /etc/os-release not found. Are you on Linux?"
-	sleep 10
-	exit 1
+	# Catch exceptions if NO os-release is found
+	echo "Error: /etc/os-release not found. Are you on Linux?\n"
+	confirm "continue" "break" "exit 1"
+fi
+
+# If flatpak was installed, configure Flathub
+if [ INSTFLTPK ]; then
+	flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+	echo "Flatpak configured.\n"
 fi
 
 
@@ -149,7 +193,7 @@ for suckless in dwm dmenu slstatus; do
  		make
 		sudo make clean install
 	else
-		echo "${suckless} is already installed to ~/.${suckless}! Skipping..."
+		echo "${suckless} is already installed to ~/.${suckless}! Skipping."
 	fi
 done
 echo "Finished Suckless Software installation!\n"
@@ -165,20 +209,12 @@ echo "Configuring Xorg to launch DWM..."
 if [ ! -f "$HOME/.xinitrc" ]; then
 	echo '#!/bin/sh\nexec dwm' > ~/.xinitrc;
 else
-	echo "~/.xinitrc already exists. Skipping...";
+	echo "~/.xinitrc already exists, skipping.";
 fi
 
-confirm "start DWM at BASH login" configx
+# Prompt user to configure autostarting DWM
+confirm "start DWM at BASH login" configx "echo Skipping."
 echo "Xorg config done!\n"
-
-
-
-# Make directories
-echo "Populating home directory."
-for dir in Desktop Documents Downloads Music Pictures Projects Videos; do
-	mkdir -p $HOME/${dir}
-done
-echo "Done!\n"
 
 
 
@@ -189,9 +225,6 @@ echo "Configuring environment..."
 cp $TEMP_DIR/res/bg.png $HOME/.bg.png
 echo "#!/bin/sh\nfeh --no-fehbg --bg-fill '$HOME/.bg.png'" > .fehbg
 
-# Configure bash prompt
-confirm "replace your current BASH prompt" configbash
-
 # Configure kitty to use correct theming and transparency
 mkdir -p $HOME/.config
 cp $TEMP_DIR/src/alacritty.toml $HOME/.config/alacritty.toml
@@ -200,7 +233,8 @@ echo "Environment configured!\n"
 
 
 
-confirm "install additional software" optional_install
+# Prompt user to install additional common quality of life software
+confirm "install additional software with Flatpak" optional_install "echo Skipping."
 
 
 
