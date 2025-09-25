@@ -136,7 +136,7 @@ confirm() {
 }
 
 configx() {
-	echo "if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" > $HOME/.bash_profile
+	echo "if [[ -z \$DISPLAY ]] && [[ \$(tty) = /dev/tty1 ]]; then\n\tstartx\nfi" > $HOME/.bash_profile
 }
 
 
